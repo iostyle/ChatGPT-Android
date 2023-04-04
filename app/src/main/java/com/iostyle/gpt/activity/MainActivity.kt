@@ -3,11 +3,17 @@ package com.iostyle.gpt.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aallam.openai.api.BetaOpenAI
+import com.aallam.openai.api.chat.ChatMessage
+import com.aallam.openai.api.chat.ChatRole
 import com.iostyle.gpt.BuildConfig
 import com.iostyle.gpt.adapter.GPTAdapter
+import com.iostyle.gpt.core.AI
 import com.iostyle.gpt.databinding.ActivityMainBinding
 
+@OptIn(BetaOpenAI::class)
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -43,7 +49,17 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "请输入", Toast.LENGTH_SHORT)
                 return@setOnClickListener
             }
-
+            binding.sendButton.text = "AI思考中"
+            binding.sendButton.isEnabled = false
+            binding.contentEt.setText("")
+            adapter.add(ChatMessage(role = ChatRole.User, content = content))
+            lifecycleScope.launchWhenResumed {
+                AI.singleQuestion(content)?.let { it1 ->
+                    adapter.add(it1)
+                }
+                binding.sendButton.text = "发送"
+                binding.sendButton.isEnabled = true
+            }
         }
 
     }

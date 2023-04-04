@@ -47,5 +47,10 @@ dependencies {
     // Adapter
     implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper:4.0.0-beta02"
 
-    
+    // import Kotlin API client BOM
+    implementation platform('com.aallam.openai:openai-client-bom:3.2.0')
+    // define dependencies without versions
+    implementation 'com.aallam.openai:openai-client'
+    implementation 'io.ktor:ktor-client-okhttp'
+
 }

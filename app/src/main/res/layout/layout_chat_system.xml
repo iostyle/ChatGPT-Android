@@ -35,7 +35,6 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
-        app:start_toEndOf="@id/avatar"
         tools:text="这是一条测试内容这是一条测试内容这是一条测试内容这是一条测试内容" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
