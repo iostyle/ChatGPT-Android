@@ -11,7 +11,7 @@ import kotlin.time.Duration.Companion.seconds
 @OptIn(BetaOpenAI::class)
 object AI {
     private val config = OpenAIConfig(
-        token = "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",
+        token = "",
         timeout = Timeout(socket = 60.seconds)
     )
     val openAI = OpenAI(config)
