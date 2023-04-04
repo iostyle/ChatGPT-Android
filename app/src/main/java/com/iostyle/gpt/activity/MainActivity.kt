@@ -12,6 +12,8 @@ import com.iostyle.gpt.BuildConfig
 import com.iostyle.gpt.adapter.GPTAdapter
 import com.iostyle.gpt.core.AI
 import com.iostyle.gpt.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @OptIn(BetaOpenAI::class)
 class MainActivity : AppCompatActivity() {
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         binding.sendButton.setOnClickListener {
             val content = binding.contentEt.text.toString()
             if (content.isEmpty()) {
-                Toast.makeText(applicationContext, "请输入", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, "请输入内容", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             binding.sendButton.text = "AI思考中"
@@ -54,8 +56,8 @@ class MainActivity : AppCompatActivity() {
             binding.contentEt.setText("")
             adapter.add(ChatMessage(role = ChatRole.User, content = content))
             lifecycleScope.launchWhenResumed {
-                AI.singleQuestion(content)?.let { it1 ->
-                    adapter.add(it1)
+                AI.contextualQuestionAppend(content)?.let { msg ->
+                    adapter.add(msg)
                 }
                 binding.sendButton.text = "发送"
                 binding.sendButton.isEnabled = true

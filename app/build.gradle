@@ -53,4 +53,7 @@ dependencies {
     implementation 'com.aallam.openai:openai-client'
     implementation 'io.ktor:ktor-client-okhttp'
 
+    // Log
+    implementation 'com.orhanobut:logger:2.2.0'
+
 }
