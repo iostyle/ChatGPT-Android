@@ -8,3 +8,4 @@ AI文件中的token替换为你自己的
 - ~上下文~
 - Navigation
 - Notch
+- 会话缓存
