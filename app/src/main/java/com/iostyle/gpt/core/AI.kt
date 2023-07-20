@@ -14,6 +14,9 @@ import kotlin.time.Duration.Companion.seconds
 @OptIn(BetaOpenAI::class)
 object AI {
 
+//    private const val MODEL = "gpt-3.5-turbo"
+    private const val MODEL = "gpt-4"
+
     private val config = OpenAIConfig(
         token = "",
         timeout = Timeout(socket = 60.seconds)
@@ -24,7 +27,7 @@ object AI {
     suspend fun singleQuestion(content: String): ChatMessage? {
         return withContext(Dispatchers.IO) {
             val chatCompletionRequest = ChatCompletionRequest(
-                model = ModelId("gpt-3.5-turbo"),
+                model = ModelId(MODEL),
                 messages = listOf(
                     ChatMessage(
                         role = ChatRole.User,
@@ -55,7 +58,7 @@ object AI {
             )
             Logger.d(messageContext)
             val chatCompletionRequest = ChatCompletionRequest(
-                model = ModelId("gpt-3.5-turbo"),
+                model = ModelId(MODEL),
                 messages = messageContext
             )
             kotlin.runCatching {
